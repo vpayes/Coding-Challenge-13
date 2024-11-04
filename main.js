@@ -55,3 +55,21 @@ function displayProducts(products) {
         productContainer.appendChild(productCard);
     });
 }
+
+// Handle Errors Gracefully
+function fetchProducts() {
+    fetch("https://www.course-api.com/javascript-store-products")
+        .then(response => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+        })
+        .then(products => {
+            displayProducts(products);
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+            document.getElementById("product-container").innerHTML = `
+                <p class="error-message">Failed to load products. Please try again later.</p>
+            `;
+        });
+}
