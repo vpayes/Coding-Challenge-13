@@ -32,3 +32,26 @@ function fetchProducts() {
         `;
     });
 }
+
+// Display Product Details Dynamically
+function displayProducts(products) {
+    const productContainer = document.getElementById("product-container");
+
+    products.forEach(product => {
+        const { company, price, name } = product.fields;
+        const imgUrl = product.fields.image[0].url;
+
+        
+        const productCard = document.createElement("div");
+        productCard.className = "product-card";
+
+        productCard.innerHTML = `
+            <img src="${imgUrl}" alt="${name}" class="product-image">
+            <h2 class="product-name">${name}</h2>
+            <p class="product-company">${company}</p>
+            <p class="product-price">$${(price / 100).toFixed(2)}</p>
+        `;
+
+        productContainer.appendChild(productCard);
+    });
+}
